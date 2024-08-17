@@ -1,0 +1,23 @@
+.weekItem {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 20px 10px 20px;
+  border-radius: 100px;
+  background: #f1f1f1;
+  border: 1px solid #d8d6d6;
+}
+
+.weekDayName {
+  font-size: 20px;
+}
+
+.weekImg {
+  width: 40px;
+}
+
+.weekDegree {
+  font-size: 26px;
+  font-weight: 800;
+}
