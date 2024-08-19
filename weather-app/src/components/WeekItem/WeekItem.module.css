@@ -2,11 +2,25 @@
   display: flex;
   cursor: pointer;
   align-items: center;
+  justify-content: space-between;
   gap: 20px;
-  padding: 10px 20px 10px 20px;
-  border-radius: 100px;
+  padding: 20px 40px 20px 40px;
+  /* height: 100px; */
+  border-radius: 10px;
   background: #f1f1f1;
   border: 1px solid #d8d6d6;
+}
+
+.weekInfoBox {
+  display: flex;
+  font-size: 20px;
+  gap: 40px;
+}
+
+.weekMainInfo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .weekDayName {
@@ -14,10 +28,20 @@
 }
 
 .weekImg {
-  width: 40px;
+  width: 100px;
 }
 
 .weekDegree {
-  font-size: 26px;
+  font-size: 40px;
   font-weight: 800;
+}
+
+.weekInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.weekInfoImg {
+  width: 20px;
 }

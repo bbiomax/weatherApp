@@ -108,12 +108,6 @@ export function Main() {
       <section className={styles.weatherContainer}>
         <span className={styles.cityName}>{weatherData?.city.name}</span>
 
-        <div className={styles.weekItems}>
-          {dailyWeather.map((item) => (
-            <WeekItem key={item.date} item={item} />
-          ))}
-        </div>
-
         <DayWeatherBox currentWeather={currentWeather} />
 
         <div className={styles.hourForecastBox}>
@@ -122,6 +116,12 @@ export function Main() {
           ))}
         </div>
       </section>
+
+      <div className={styles.weekItems}>
+        {dailyWeather.map((item) => (
+          <WeekItem key={item.date} item={item} />
+        ))}
+      </div>
 
       {errorModal && <ErrorModal setErrorModal={setErrorModal} />}
     </div>
