@@ -1,31 +1,37 @@
 import { useState } from "react";
 import styles from "./Main.module.css";
-import { rawWeatherData } from "../../data";
+import { rawCurrentWeather, rawWeatherData } from "../../data";
 import { Search } from "../Search/Search";
 import { WeekItem } from "../WeekItem/WeekItem";
 import { DayWeatherBox } from "../DayWeatherBox/DayWeatherBox";
 import { HourForecastItem } from "../HourForecastItem/HourForecastItem";
+import { fetchCurrentWeather, fetchForecastWeather } from "../../api";
+import { ErrorModal } from "../ErrorModal/ErrorModal";
 
 export function Main() {
   const [weatherData, setWeatherData] = useState(rawWeatherData);
+  const [currentWeather, setCurrentWeather] = useState(rawCurrentWeather);
   const [city, setCity] = useState("");
+  const [errorModal, setErrorModal] = useState(false);
   //   console.log(weatherData);
+
+  const getCurrentWeather = async (city) => {
+    try {
+      const data = await fetchCurrentWeather(city);
+      setCurrentWeather(data);
+    } catch (error) {
+      console.log(error.message);
+      setErrorModal(true);
+    }
+  };
 
   const getWeather = async (city) => {
     try {
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=49bd81db6f5b10dc4126cac69ef6e16c&units=metric`
-      );
-
-      if (!response.ok) {
-        throw new Error("Ошибка получения данных о погоде");
-      }
-
-      const data = await response.json();
-      //   console.log(data);
+      const data = await fetchForecastWeather(city);
       setWeatherData(data);
     } catch (error) {
       console.log(error.message);
+      setErrorModal(true);
     }
   };
 
@@ -38,7 +44,6 @@ export function Main() {
       const dateObj = new Date(item.dt * 1000);
       const day = String(dateObj.getDate()).padStart(2, "0");
       const month = String(dateObj.getMonth() + 1).padStart(2, "0");
-
       const date = `${day}.${month}`;
 
       if (!dailyData[date]) {
@@ -85,14 +90,20 @@ export function Main() {
     }));
   };
 
-  const dailyWeather = getDailyWeather();
+  const dailyWeather = getDailyWeather().slice(1);
+  console.log(dailyWeather);
   const hourlyForecast = getHourlyForecast();
 
   // console.log(dailyWeather);
 
   return (
     <div className={styles.content}>
-      <Search getWeather={getWeather} city={city} setCity={setCity} />
+      <Search
+        getWeather={getWeather}
+        getCurrentWeather={getCurrentWeather}
+        city={city}
+        setCity={setCity}
+      />
 
       <section className={styles.weatherContainer}>
         <span className={styles.cityName}>{weatherData?.city.name}</span>
@@ -103,7 +114,7 @@ export function Main() {
           ))}
         </div>
 
-        <DayWeatherBox dailyWeather={dailyWeather} />
+        <DayWeatherBox currentWeather={currentWeather} />
 
         <div className={styles.hourForecastBox}>
           {hourlyForecast.map((item, index) => (
@@ -111,6 +122,8 @@ export function Main() {
           ))}
         </div>
       </section>
+
+      {errorModal && <ErrorModal setErrorModal={setErrorModal} />}
     </div>
   );
 }

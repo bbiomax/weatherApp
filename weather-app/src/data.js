@@ -1,3 +1,50 @@
+export const rawCurrentWeather = {
+  coord: {
+    lon: 37.6156,
+    lat: 55.7522,
+  },
+  weather: [
+    {
+      id: 801,
+      main: "Clouds",
+      description: "few clouds",
+      icon: "02d",
+    },
+  ],
+  base: "stations",
+  main: {
+    temp: 26.78,
+    feels_like: 27.38,
+    temp_min: 25.1,
+    temp_max: 27.43,
+    pressure: 1010,
+    humidity: 53,
+    sea_level: 1010,
+    grnd_level: 992,
+  },
+  visibility: 10000,
+  wind: {
+    speed: 5.2,
+    deg: 308,
+    gust: 7.03,
+  },
+  clouds: {
+    all: 14,
+  },
+  dt: 1723983450,
+  sys: {
+    type: 2,
+    id: 2095214,
+    country: "RU",
+    sunrise: 1723946868,
+    sunset: 1724000353,
+  },
+  timezone: 10800,
+  id: 524901,
+  name: "Moscow",
+  cod: 200,
+};
+
 export const rawWeatherData = {
   cod: "200",
   message: 0,

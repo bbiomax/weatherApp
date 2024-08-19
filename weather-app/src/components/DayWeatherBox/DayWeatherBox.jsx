@@ -1,25 +1,25 @@
 import styles from "./DayWeatherBox.module.css";
 
-export function DayWeatherBox({ dailyWeather }) {
+export function DayWeatherBox({ currentWeather }) {
   return (
     <div className={styles.dayWeatherBox}>
       <img
-        src={`/img/${dailyWeather[0]?.weather[0].main}.gif`}
-        alt="sun-gif"
+        src={`/img/${currentWeather.weather[0].main}.gif`}
+        alt="weather-gif"
         className={styles.weatherGif}
       />
 
       <div className={styles.dayWeatherInfo}>
         <div className={styles.dayOfWeekAndDegreeBox}>
-          <span className={styles.dayWeatherDayOfWeek}>Сегодня</span>
+          <span className={styles.dayWeatherDayOfWeek}>Сейчас</span>
           <span className={styles.dayWeatherDegree}>
-            {dailyWeather[0]?.avgTemp}°
+            {Math.round(currentWeather.main.temp)}°
           </span>
         </div>
 
         <div className={styles.windAndHumidity}>
-          <span>Скорость ветра: {dailyWeather[0]?.avgWind} м/с</span>
-          <span>Влажность: {Math.round(dailyWeather[0]?.avgHumidity)}%</span>
+          <span>Скорость ветра: {currentWeather.wind.speed} м/с</span>
+          <span>Влажность: {Math.round(currentWeather.main.humidity)}%</span>
         </div>
       </div>
     </div>

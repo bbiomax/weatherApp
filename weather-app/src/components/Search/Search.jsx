@@ -1,13 +1,18 @@
 import styles from "./Search.module.css";
 
-export function Search({ getWeather, city, setCity }) {
+export function Search({ getWeather, getCurrentWeather, city, setCity }) {
+  const getAllWeather = (city) => {
+    getWeather(city);
+    getCurrentWeather(city);
+  };
+
   return (
     <section className={styles.searchContainer}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor"
-        onClick={() => getWeather(city)}
+        onClick={() => getAllWeather(city)}
         className={styles.searchImg}
       >
         <path
