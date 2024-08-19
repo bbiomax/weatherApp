@@ -1,6 +1,6 @@
 import styles from "./ErrorModal.module.css";
 
-export function ErrorModal({ setErrorModal }) {
+export function ErrorModal({ setErrorModal, errorMessage }) {
   return (
     <div className={styles.wrapper} onClick={() => setErrorModal()}>
       <div
@@ -16,11 +16,15 @@ export function ErrorModal({ setErrorModal }) {
           <h1>Упс!</h1>
         </div>
         <span className={styles.errorMessage}>
-          Кажется, данные не захотели приходить с сервера. Попробуйте повторить
-          попытку.
+          {/* Кажется, данные не захотели приходить с сервера. Попробуйте повторить
+          попытку. */}
+
+          {errorMessage === 404
+            ? "Кажется, такого города не существует, либо в названии допущена ошибка."
+            : "Кажется, данные не захотели приходить с сервера. Попробуйте повторить попытку."}
         </span>
         <button className={styles.errorButton} onClick={() => setErrorModal()}>
-          Попробовать снова
+          {errorMessage === 404 ? "Понял" : "Попробовать снова"}
         </button>
       </div>
     </div>

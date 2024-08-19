@@ -5,7 +5,11 @@ export const fetchCurrentWeather = async (city) => {
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${tkn}&units=metric`
   );
   if (!response.ok) {
-    throw new Error("Ошибка получения данных о погоде");
+    console.log(response.status);
+    throw {
+      message: "Ошибка при получении данных о погоде",
+      status: response.status,
+    };
   }
   return response.json();
 };
@@ -15,7 +19,10 @@ export const fetchForecastWeather = async (city) => {
     `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${tkn}&units=metric`
   );
   if (!response.ok) {
-    throw new Error("Ошибка получения данных о погоде");
+    throw {
+      message: "Ошибка при получении данных о погоде",
+      status: response.status,
+    };
   }
   return response.json();
 };

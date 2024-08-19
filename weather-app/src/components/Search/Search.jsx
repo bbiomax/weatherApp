@@ -1,7 +1,15 @@
 import styles from "./Search.module.css";
 
-export function Search({ getWeather, getCurrentWeather, city, setCity }) {
+export function Search({
+  getWeather,
+  getCurrentWeather,
+  city,
+  setCity,
+}) {
   const getAllWeather = (city) => {
+    if (!city) {
+      return;
+    }
     getWeather(city);
     getCurrentWeather(city);
   };

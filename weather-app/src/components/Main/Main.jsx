@@ -1,37 +1,50 @@
 import { useState } from "react";
 import styles from "./Main.module.css";
-import { rawCurrentWeather, rawWeatherData } from "../../data";
+// import { rawCurrentWeather, rawWeatherData } from "../../data";
 import { Search } from "../Search/Search";
 import { WeekItem } from "../WeekItem/WeekItem";
 import { DayWeatherBox } from "../DayWeatherBox/DayWeatherBox";
 import { HourForecastItem } from "../HourForecastItem/HourForecastItem";
 import { fetchCurrentWeather, fetchForecastWeather } from "../../api";
 import { ErrorModal } from "../ErrorModal/ErrorModal";
+import { Loader } from "../Loader/Loader";
 
 export function Main() {
-  const [weatherData, setWeatherData] = useState(rawWeatherData);
-  const [currentWeather, setCurrentWeather] = useState(rawCurrentWeather);
+  const [weatherData, setWeatherData] = useState(null); // для проверки -> rawWeatherData
+  const [currentWeather, setCurrentWeather] = useState(null); // для проверки -> rawCurrentWeather
   const [city, setCity] = useState("");
   const [errorModal, setErrorModal] = useState(false);
-  //   console.log(weatherData);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getCurrentWeather = async (city) => {
+    setIsLoading(true);
     try {
       const data = await fetchCurrentWeather(city);
+      console.log(data);
       setCurrentWeather(data);
     } catch (error) {
-      console.log(error.message);
-      setErrorModal(true);
+      setErrorMessage(error.status);
+      if (error.status !== 400) {
+        setErrorModal(true);
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const getWeather = async (city) => {
+    setIsLoading(true);
     try {
       const data = await fetchForecastWeather(city);
       setWeatherData(data);
     } catch (error) {
-      console.log(error.message);
-      setErrorModal(true);
+      setErrorMessage(error.status);
+      if (error.status !== 400) {
+        setErrorModal(true);
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -91,10 +104,7 @@ export function Main() {
   };
 
   const dailyWeather = getDailyWeather().slice(1);
-  console.log(dailyWeather);
   const hourlyForecast = getHourlyForecast();
-
-  // console.log(dailyWeather);
 
   return (
     <div className={styles.content}>
@@ -103,27 +113,38 @@ export function Main() {
         getCurrentWeather={getCurrentWeather}
         city={city}
         setCity={setCity}
+        errorMessage={errorMessage}
       />
 
-      <section className={styles.weatherContainer}>
-        <span className={styles.cityName}>{weatherData?.city.name}</span>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        weatherData && (
+          <>
+            <section className={styles.weatherContainer}>
+              <span className={styles.cityName}>{weatherData?.city.name}</span>
 
-        <DayWeatherBox currentWeather={currentWeather} />
+              <DayWeatherBox currentWeather={currentWeather} />
 
-        <div className={styles.hourForecastBox}>
-          {hourlyForecast.map((item, index) => (
-            <HourForecastItem key={index} item={item} />
-          ))}
-        </div>
-      </section>
+              <div className={styles.hourForecastBox}>
+                {hourlyForecast.map((item, index) => (
+                  <HourForecastItem key={index} item={item} />
+                ))}
+              </div>
+            </section>
 
-      <div className={styles.weekItems}>
-        {dailyWeather.map((item) => (
-          <WeekItem key={item.date} item={item} />
-        ))}
-      </div>
+            <div className={styles.weekItems}>
+              {dailyWeather.map((item) => (
+                <WeekItem key={item.date} item={item} />
+              ))}
+            </div>
+          </>
+        )
+      )}
 
-      {errorModal && <ErrorModal setErrorModal={setErrorModal} />}
+      {errorModal && (
+        <ErrorModal setErrorModal={setErrorModal} errorMessage={errorMessage} />
+      )}
     </div>
   );
 }
