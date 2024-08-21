@@ -26,10 +26,3 @@ body {
     padding-right: 24px;
   }
 }
-
-@media (max-width: 767px) {
-  /* .wrapper {
-    padding-left: 0px;
-    padding-right: 0px;
-  } */
-}

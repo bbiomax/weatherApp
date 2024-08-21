@@ -21,7 +21,6 @@ export function Main() {
     setIsLoading(true);
     try {
       const data = await fetchCurrentWeather(city);
-      console.log(data);
       setCurrentWeather(data);
     } catch (error) {
       setErrorMessage(error.status);
@@ -33,7 +32,7 @@ export function Main() {
     }
   };
 
-  const getWeather = async (city) => {
+  const getForecastWeather = async (city) => {
     setIsLoading(true);
     try {
       const data = await fetchForecastWeather(city);
@@ -109,7 +108,7 @@ export function Main() {
   return (
     <div className={styles.content}>
       <Search
-        getWeather={getWeather}
+        getForecastWeather={getForecastWeather}
         getCurrentWeather={getCurrentWeather}
         city={city}
         setCity={setCity}

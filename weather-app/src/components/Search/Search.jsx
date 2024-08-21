@@ -1,7 +1,7 @@
 import styles from "./Search.module.css";
 
 export function Search({
-  getWeather,
+  getForecastWeather,
   getCurrentWeather,
   city,
   setCity,
@@ -10,7 +10,7 @@ export function Search({
     if (!city) {
       return;
     }
-    getWeather(city);
+    getForecastWeather(city);
     getCurrentWeather(city);
   };
 

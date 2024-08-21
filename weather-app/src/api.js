@@ -5,7 +5,6 @@ export const fetchCurrentWeather = async (city) => {
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${tkn}&units=metric`
   );
   if (!response.ok) {
-    console.log(response.status);
     throw {
       message: "Ошибка при получении данных о погоде",
       status: response.status,
