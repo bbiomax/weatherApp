@@ -45,3 +45,13 @@
 .weekInfoImg {
   width: 20px;
 }
+
+@media (max-width: 767px) {
+  .weekItem {
+    flex-direction: column;
+  }
+  .weekInfoBox {
+    flex-direction: column;
+    gap: 15px;
+  }
+}

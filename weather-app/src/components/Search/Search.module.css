@@ -36,3 +36,9 @@
 .searchInput::placeholder {
   color: #d3d3d3;
 }
+
+@media (max-width: 768px) {
+  .searchContainer {
+    width: 100%;
+  }
+}

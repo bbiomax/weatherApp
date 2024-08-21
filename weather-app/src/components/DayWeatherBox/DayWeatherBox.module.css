@@ -1,10 +1,10 @@
 .dayWeatherBox {
   margin-top: 20px;
-
   display: flex;
   align-items: center;
+  justify-content: center;
   border: 2px solid #c0c0c0;
-  padding: 20px 0px 20px 20px;
+  padding: 20px 20px 20px 20px;
   border-radius: 20px;
   gap: 40px;
 }
@@ -45,4 +45,44 @@
   color: #8f8f8f;
 
   gap: 20px;
+}
+
+.windAndHumidityItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.weekInfoImg {
+  width: 30px;
+}
+
+@media (min-width: 768px) and (max-width: 833px) {
+  .weatherGif {
+    width: 200px;
+  }
+  .windAndHumidity {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 767px) {
+  .weatherGif {
+    width: 150px;
+  }
+  .dayWeatherBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .dayWeatherInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .windAndHumidity {
+    font-size: 16px;
+    align-items: center;
+  }
 }
