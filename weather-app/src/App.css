@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #fff;
+  font-family: "Manrope", sans-serif;
+}
+
+.wrapper {
+  padding-left: calc(50% - 600px);
+  padding-right: calc(50% - 600px);
+}
+
+@media (max-width: 1024px) {
+  .wrapper {
+    padding-left: calc(50% - 393px);
+    padding-right: calc(50% - 393px);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 833px) {
+  .wrapper {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
